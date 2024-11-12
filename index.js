@@ -102,6 +102,13 @@ async function run() {
       res.send(result)
     })
 
+    //get rooms for Hosted Users
+    app.get('/rooms/:email', verifyToken, async (req, res) => {
+      const email = req.params.email
+      const result = await roomsCollection.find({ 'host.email': email }).toArray()
+      res.send(result)
+    })
+
     //Get single room data
     app.get('/room/:id', async (req, res) => {
       const id = req.params.id;
